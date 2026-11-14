@@ -90,6 +90,7 @@ The installer targets the current user's `Programs\Deskland Preview` directory a
 | Path | Contents |
 | --- | --- |
 | `host/` | Windows host, build scripts and application manifest |
+| `macos/` | Unofficial community macOS host (Swift); see [macos/README.md](macos/README.md) |
 | `prototype/flat.html` | Beach theme |
 | `prototype/meadow.html` | Meadow theme |
 | `prototype/settings.html` | Settings interface |
@@ -198,6 +199,7 @@ powershell -ExecutionPolicy Bypass -File tools\build-installer.ps1
 | 路径 | 用途 |
 | --- | --- |
 | `host/` | Windows 宿主、构建脚本与清单 |
+| `macos/` | 社区贡献的非官方 macOS 宿主（Swift），见 [macos/README.zh-CN.md](macos/README.zh-CN.md) |
 | `prototype/flat.html` | 沙滩主题 |
 | `prototype/meadow.html` | 草地主题 |
 | `prototype/settings.html` | 设置界面 |
