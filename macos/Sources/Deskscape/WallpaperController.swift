@@ -18,10 +18,10 @@ final class WallpaperController: NSObject, WKScriptMessageHandler {
     private var snapshotDone: ((String?, String?, String?) -> Void)?
     private var recordDone: ((String?, String?, String?, String?) -> Void)?
     private var timeouts: [String: Timer] = [:]
+    private let holder = Holder()          // garde le relais en vie : WKUserContentController ne le retient pas
 
     init(screen: NSScreen, roots: [String: URL]) {
         window = WallpaperWindow(contentRect: screen.frame, styleMask: .borderless, backing: .buffered, defer: false)
-        let holder = Holder()
         web = WebBridge.makeWebView(handler: holder, roots: roots)
         super.init()
         holder.target = self
@@ -76,6 +76,7 @@ final class WallpaperController: NSObject, WKScriptMessageHandler {
 
     func userContentController(_ c: WKUserContentController, didReceive m: WKScriptMessage) {
         guard let msg = m.body as? String else { return }
+        if CommandLine.arguments.contains("--debug-messages") { NSLog("MSG page→hôte : %@ (%d car.)", String(msg.prefix(48)), msg.count) }
         if msg.hasPrefix("snapshot|") {
             let p = msg.split(separator: "|", maxSplits: 2, omittingEmptySubsequences: false).map(String.init)
             if p.count < 3 { finishSnapshot(nil, nil, I18n.t("errBadData")) }

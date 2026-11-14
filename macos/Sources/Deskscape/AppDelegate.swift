@@ -13,6 +13,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
     var statusItem: NSStatusItem!
     var pauseItem, autostartItem, iconsItem, settingsItem, reloadItem, quitItem: NSMenuItem!
     var manualPause = false
+    var snapshotRun = false
     let power = PowerMonitor()
     let metrics = Metrics()
     var themeMenu, usageMenu, powerMenu, qualityMenu: NSMenu!
@@ -32,13 +33,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
     func applicationDidFinishLaunching(_ n: Notification) {
         NSApp.setActivationPolicy(.accessory)
         guard let dir = locateWebDir() else {
-            let a = NSAlert(); a.messageText = "Deskscape"; a.informativeText = "Dossier « web » introuvable."; a.runModal()
+            let a = NSAlert(); a.messageText = "Deskscape"; a.informativeText = (Locale.preferredLanguages.first ?? "en").hasPrefix("fr") ? "Dossier « web » introuvable." : "The “web” folder could not be found."; a.runModal()
             return NSApp.terminate(nil)
         }
         webDir = dir
-        Store.load()
+        let snapshotThemes = CommandLine.arguments.first { $0.hasPrefix("--snapshot=") }.map { $0.dropFirst(11).split(separator: ",").map(String.init) }
+        if snapshotThemes == nil { Store.load() }       // mode capture : réglages par défaut, rien n'est lu ni écrit
         if CommandLine.arguments.contains("--quality=eco") { Store.ecoQuality = true }
         I18n.load(webDir: webDir, setting: Store.lang)
+        if let themes = snapshotThemes {
+            snapshotRun = true
+            let out = CommandLine.arguments.first { $0.hasPrefix("--out=") }.map { URL(fileURLWithPath: String($0.dropFirst(6))) }
+                ?? URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+            startWallpaper()
+            runSnapshots(themes: themes, out: out)
+            return
+        }
         buildStatusItem()
         startWallpaper()
         iconTimer = Timer.scheduledTimer(withTimeInterval: 4, repeats: true) { [weak self] _ in self?.pollIcons() }
@@ -113,7 +123,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
     }
 
     func pollIcons() {
-        if pauseReason != nil { return }
+        if pauseReason != nil || snapshotRun { return }
         reader.read { [weak self] snap in
             guard let self = self else { return }
             if snap == nil && self.reader.permissionDenied && !self.warnedPermission {
@@ -221,6 +231,45 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
                 }
             }
         }
+    }
+
+    /// `Deskscape --snapshot=beach,meadow --out=dossier` : capture, pour chaque thème, l'image de partage
+    /// (icônes d'exemple, aucune donnée réelle) avec une disposition d'icônes fictive de bureau Mac.
+    func runSnapshots(themes: [String], out: URL) {
+        guard let w = wallpaper, let scr = NSScreen.screens.first else { return }
+        let size = scr.frame.size
+        var fake: [IconRect] = []
+        let cols = [7, 6, 5, 3]
+        for (c, n) in cols.enumerated() {
+            for r in 0..<n {
+                let right = Double(size.width) - 14 - 92 * Double(c), top = 40 + 108 * Double(r)
+                fake.append(IconRect(l: right - 80, t: top, r: right, b: top + 92))
+            }
+        }
+        for (x, y) in [(430.0, 300.0), (660.0, 520.0), (300.0, 650.0), (170.0, 190.0)] {
+            fake.append(IconRect(l: x, t: y, r: x + 80, b: y + 92))
+        }
+        var queue = themes
+        func next() {
+            guard !queue.isEmpty else { return NSApp.terminate(nil) }
+            let id = queue.removeFirst()
+            guard let page = Themes.page(webDir: webDir, id: id) else { return next() }
+            Store.theme = id
+            w.load(page: page)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                w.setIcons(IconSnapshot(visible: true, rects: fake, mode: "fake"))
+                DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
+                    w.requestSnapshot { [self] _, png, err in
+                        if let png = png, let d = decodeDataURL(png) {
+                            try? d.write(to: out.appendingPathComponent("macos-\(id).png"))
+                            NSLog("SNAP ok %@", id)
+                        } else { NSLog("SNAP erreur %@ : %@", id, err ?? "?") }
+                        next()
+                    }
+                }
+            }
+        }
+        next()
     }
 
     // MARK: - Thèmes, économie d'énergie, consommation

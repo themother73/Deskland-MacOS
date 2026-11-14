@@ -62,6 +62,7 @@ final class LocalSchemeHandler: NSObject, WKURLSchemeHandler {
     ]
 
     func webView(_ webView: WKWebView, start task: WKURLSchemeTask) {
+        if CommandLine.arguments.contains("--debug-messages") { NSLog("HTTP %@", task.request.url?.absoluteString ?? "?") }
         guard let url = task.request.url, let host = url.host, let root = roots[host] else { return fail(task, 404) }
         let rel = url.path.removingPercentEncoding ?? url.path
         let file = root.appendingPathComponent(rel == "/" ? "settings.html" : rel).standardizedFileURL
