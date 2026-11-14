@@ -28,7 +28,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
     var shareDir: URL { FileManager.default.urls(for: .picturesDirectory, in: .userDomainMask)[0].appendingPathComponent("Deskscape") }
     lazy var roots: [String: URL] = ["app.local": webDir, "share.local": shareDir]
 
-    // MARK: - Démarrage
+    // MARK: - Launch
 
     func applicationDidFinishLaunching(_ n: Notification) {
         NSApp.setActivationPolicy(.accessory)
@@ -38,7 +38,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
         }
         webDir = dir
         let snapshotThemes = CommandLine.arguments.first { $0.hasPrefix("--snapshot=") }.map { $0.dropFirst(11).split(separator: ",").map(String.init) }
-        if snapshotThemes == nil { Store.load() }       // mode capture : réglages par défaut, rien n'est lu ni écrit
+        if snapshotThemes == nil { Store.load() }       // snapshot mode: default settings, nothing is read or written
         if CommandLine.arguments.contains("--quality=eco") { Store.ecoQuality = true }
         I18n.load(webDir: webDir, setting: Store.lang)
         if let themes = snapshotThemes {
@@ -53,7 +53,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
         startWallpaper()
         iconTimer = Timer.scheduledTimer(withTimeInterval: 4, repeats: true) { [weak self] _ in self?.pollIcons() }
         pollIcons()
-        // Un glisser-déposer d'icône se termine par un relâchement de souris : on relit les positions juste après (sans attendre le sondage lent).
+        // Dragging an icon ends with a mouse-up: re-read the positions right after (without waiting for the slow poll).
         NSEvent.addGlobalMonitorForEvents(matching: .leftMouseUp) { [weak self] _ in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { self?.pollIcons() }
         }
@@ -78,7 +78,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
         return candidates.first { FileManager.default.fileExists(atPath: $0.appendingPathComponent("themes.json").path) }
     }
 
-    // MARK: - Fond d'écran
+    // MARK: - Wallpaper
 
     func startWallpaper() {
         guard let screen = NSScreen.screens.first else { return }
@@ -102,7 +102,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
 
     @objc func occlusionChanged() { updatePause() }
 
-    /// Pause : manuelle, bureau entièrement caché (plein écran, autre Space, veille), batterie ou mode économie d'énergie (au choix).
+    /// Pause: manual, desktop fully hidden (full-screen app, other Space, sleep), battery or Low Power Mode (user's choice).
     func updatePause() {
         guard let w = wallpaper else { return }
         var reason: String?
@@ -113,7 +113,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
         let wasPaused = pauseReason != nil
         pauseReason = reason
         w.setPaused(reason != nil)
-        if wasPaused && reason == nil { pollIcons() }       // pas de sondage pendant la pause : on rattrape au réveil
+        if wasPaused && reason == nil { pollIcons() }       // no polling while paused: catch up on resume
         pauseItem?.state = manualPause ? .on : .off
         let name = reason == nil ? "beach.umbrella" : "pause.circle"
         let img = NSImage(systemSymbolName: name, accessibilityDescription: "Deskscape")
@@ -134,12 +134,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
             self.lastSnapshot = snap
             self.wallpaper?.setIcons(snap)
             self.overlay?.update(snap)
-            NSLog("Deskscape: %d icônes (%@, visibles=%d)", snap.rects.count, snap.mode, snap.visible ? 1 : 0)
+            NSLog("Deskscape: %d icons (%@, visible=%d)", snap.rects.count, snap.mode, snap.visible ? 1 : 0)
             if let j = self.wallpaper?.lastIconsJSON { self.postSettings(j) }
         }
     }
 
-    // MARK: - Barre des menus
+    // MARK: - Menu bar
 
     func buildStatusItem() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
@@ -204,7 +204,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
         Store.ecoQuality = eco; Store.save(); applyMenuTexts(); wallpaper?.reload()
     }
 
-    /// `Deskscape --benchmark` : mesure CPU / mémoire / GPU en animation puis en pause, écrit le résultat dans le log et quitte.
+    /// `Deskscape --benchmark`: measures CPU / memory / GPU while animating then paused, logs the result and quits.
     func runBenchmark() {
         func phase(_ label: String, seconds: Int, done: @escaping () -> Void) {
             metrics.reset(); _ = metrics.sample(pids: measuredPids())
@@ -216,9 +216,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
                     t.invalidate()
                     let avg = cpu.isEmpty ? 0 : cpu.reduce(0, +) / Double(cpu.count)
                     let gavg = gpu.isEmpty ? -1 : gpu.reduce(0, +) / gpu.count
-                    NSLog("BENCH %@ : CPU moyen %.1f %% (max %.1f), mémoire %@, GPU système moyen %d %%", label, avg, cpu.max() ?? 0,
+                    NSLog("BENCH %@: average CPU %.1f %% (max %.1f), memory %@, average system GPU %d %%", label, avg, cpu.max() ?? 0,
                           ByteCountFormatter.string(fromByteCount: Int64(mem), countStyle: .memory), gavg)
-                    NSLog("BENCH   détail par processus (pid: %% CPU moyen) : %@", per.map { "\($0.key)=\(String(format: "%.1f", $0.value))" }.joined(separator: " "))
+                    NSLog("BENCH   per process (pid=avg CPU %%): %@", per.map { "\($0.key)=\(String(format: "%.1f", $0.value))" }.joined(separator: " "))
                     done()
                 }
             }
@@ -233,8 +233,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
         }
     }
 
-    /// `Deskscape --snapshot=beach,meadow --out=dossier` : capture, pour chaque thème, l'image de partage
-    /// (icônes d'exemple, aucune donnée réelle) avec une disposition d'icônes fictive de bureau Mac.
+    /// `Deskscape --snapshot=beach,meadow --out=folder`: captures, for each theme, the share image
+    /// (sample icons, no real data) using a fake Mac desktop icon layout.
     func runSnapshots(themes: [String], out: URL) {
         guard let w = wallpaper, let scr = NSScreen.screens.first else { return }
         let size = scr.frame.size
@@ -272,7 +272,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
         next()
     }
 
-    // MARK: - Thèmes, économie d'énergie, consommation
+    // MARK: - Themes, power saving, resource usage
 
     func themeList() -> [(id: String, name: String)] {
         guard let d = try? Data(contentsOf: webDir.appendingPathComponent("themes.json")),
@@ -303,7 +303,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
         switchTheme(id)
     }
 
-    /// Change de thème depuis le menu ou la fenêtre de réglages.
+    /// Switches theme from the menu or the settings window.
     func switchTheme(_ id: String) {
         guard let page = Themes.page(webDir: webDir, id: id) else { return }
         if id != Store.theme {
@@ -332,10 +332,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
     func menuWillOpen(_ menu: NSMenu) {
         guard menu === usageMenu else { return }
         metrics.reset()
-        _ = metrics.sample(pids: measuredPids())       // première mesure : sert de référence
+        _ = metrics.sample(pids: measuredPids())       // first sample: used as the baseline
         cpuLine.title = I18n.t("usageCpu") + " : …"; memLine.title = I18n.t("usageMem") + " : …"; gpuLine.title = I18n.t("usageGpu") + " : …"
         let t = Timer(timeInterval: 1, repeats: true) { [weak self] _ in self?.updateUsage() }
-        RunLoop.main.add(t, forMode: .common)             // les menus ouverts tournent dans un autre mode
+        RunLoop.main.add(t, forMode: .common)             // open menus run in another run loop mode
         usageTimer = t
     }
 
@@ -371,15 +371,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
         overlay = o; iconsItem.state = .on
     }
 
-    // MARK: - Démarrage à l'ouverture de session
+    // MARK: - Start at login
 
     var isAutostart: Bool { SMAppService.mainApp.status == .enabled }
     func setAutostart(_ on: Bool) {
         do { if on { try SMAppService.mainApp.register() } else { try SMAppService.mainApp.unregister() } }
-        catch { NSLog("Deskscape: démarrage auto impossible : %@", "\(error)") }
+        catch { NSLog("Deskscape: could not change start at login: %@", "\(error)") }
     }
 
-    // MARK: - Fenêtre de réglages
+    // MARK: - Settings window
 
     func openSettings() {
         if let w = settingsWindow { w.makeKeyAndOrderFront(nil); NSApp.activate(ignoringOtherApps: true); return }

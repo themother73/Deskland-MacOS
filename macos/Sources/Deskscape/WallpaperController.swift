@@ -1,7 +1,7 @@
 import AppKit
 import WebKit
 
-/// Fenêtre plein écran au niveau « bureau » : sous les icônes du Finder, au-dessus du fond d'écran système.
+/// Full-screen window at “desktop” level: below the Finder icons, above the system wallpaper.
 final class WallpaperWindow: NSWindow {
     override var canBecomeKey: Bool { false }
     override var canBecomeMain: Bool { false }
@@ -18,7 +18,7 @@ final class WallpaperController: NSObject, WKScriptMessageHandler {
     private var snapshotDone: ((String?, String?, String?) -> Void)?
     private var recordDone: ((String?, String?, String?, String?) -> Void)?
     private var timeouts: [String: Timer] = [:]
-    private let holder = Holder()          // garde le relais en vie : WKUserContentController ne le retient pas
+    private let holder = Holder()          // keeps the relay alive: WKUserContentController does not retain it
 
     init(screen: NSScreen, roots: [String: URL]) {
         window = WallpaperWindow(contentRect: screen.frame, styleMask: .borderless, backing: .buffered, defer: false)
@@ -72,11 +72,11 @@ final class WallpaperController: NSObject, WKScriptMessageHandler {
         post(json)
     }
 
-    // MARK: - Messages de la page
+    // MARK: - Messages from the page
 
     func userContentController(_ c: WKUserContentController, didReceive m: WKScriptMessage) {
         guard let msg = m.body as? String else { return }
-        if CommandLine.arguments.contains("--debug-messages") { NSLog("MSG page→hôte : %@ (%d car.)", String(msg.prefix(48)), msg.count) }
+        if CommandLine.arguments.contains("--debug-messages") { NSLog("MSG page→host: %@ (%d chars)", String(msg.prefix(48)), msg.count) }
         if msg.hasPrefix("snapshot|") {
             let p = msg.split(separator: "|", maxSplits: 2, omittingEmptySubsequences: false).map(String.init)
             if p.count < 3 { finishSnapshot(nil, nil, I18n.t("errBadData")) }
@@ -92,7 +92,7 @@ final class WallpaperController: NSObject, WKScriptMessageHandler {
             else { finishRecord(p[1], p[2], p[3], nil) }
             return
         }
-        // « ready » : réglages, puis icônes et état de pause
+        // “ready”: settings, then icons and pause state
         post(settingsJSON())
         if !lastIconsJSON.isEmpty { post(lastIconsJSON) }
         post("{\"t\":\"pause\",\"v\":\(paused)}")
@@ -132,7 +132,7 @@ final class WallpaperController: NSObject, WKScriptMessageHandler {
     }
 }
 
-/// Calque semi-transparent qui dessine les rectangles détectés (calibration).
+/// Semi-transparent overlay that draws the detected rectangles (calibration).
 final class DebugOverlay: NSWindow {
     private let canvas = Canvas()
 

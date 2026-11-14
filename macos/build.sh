@@ -1,5 +1,5 @@
 #!/bin/zsh
-# Construit Deskscape.app (binaire universel arm64 + x86_64, dossier web/ embarqué) dans ./build
+# Builds Deskscape.app (universal arm64 + x86_64 binary, web/ folder embedded) into ./build
 set -euo pipefail
 cd "$(dirname "$0")"
 VERSION=$(cat VERSION)
@@ -34,6 +34,6 @@ cat > "$APP/Contents/Info.plist" <<PLIST
   <string>Deskscape reads the position of your desktop icons through the Finder so the landscape can adapt to them.</string>
 </dict></plist>
 PLIST
-# Signature ad hoc (usage local / partage sans compte développeur Apple)
+# Ad hoc signature (local use / sharing without an Apple developer account)
 codesign --force --deep --sign - "$APP"
 echo "OK → $APP ($VERSION, $(lipo -archs "$APP/Contents/MacOS/Deskscape"))"

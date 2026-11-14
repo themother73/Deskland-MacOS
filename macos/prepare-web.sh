@@ -1,5 +1,5 @@
 #!/bin/zsh
-# Génère macos/web = prototype/ (thèmes Deskland d'origine, non modifiés) + web-overlay/ (adaptations macOS)
+# Generates macos/web = prototype/ (original Deskland themes, unmodified) + web-overlay/ (macOS adaptations)
 set -euo pipefail
 cd "$(dirname "$0")"
 rm -rf web

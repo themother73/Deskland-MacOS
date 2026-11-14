@@ -11,7 +11,7 @@ func parseJSON(_ s: String) -> [String: Any]? {
     return (try? JSONSerialization.jsonObject(with: d)) as? [String: Any]
 }
 
-/// Réglages utilisateur : thème courant + paramètres modifiés par thème (même format que Deskland).
+/// User settings: current theme + parameters changed per theme (same format as Deskland).
 enum Store {
     static let dir: URL = {
         let u = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("Deskscape")
@@ -22,7 +22,7 @@ enum Store {
 
     static var theme = "beach"
     static var lang = "auto"
-    static var ecoQuality = false          // rendu en 1x au lieu de la résolution Retina native
+    static var ecoQuality = false          // render at 1x instead of native Retina resolution
     static var pauseOnBattery = false
     static var pauseOnLowPower = true
     static var params: [String: [String: Any]] = [:]
@@ -46,7 +46,7 @@ enum Store {
     static func forTheme(_ id: String) -> [String: Any] { params[id] ?? [:] }
 }
 
-/// Liste des thèmes (web/themes.json) : seuls les thèmes `ready` + `free` sont chargeables.
+/// Theme list (web/themes.json): only `ready` + `free` themes can be loaded.
 enum Themes {
     static func page(webDir: URL, id: String) -> String? {
         guard let d = try? Data(contentsOf: webDir.appendingPathComponent("themes.json")),
@@ -58,13 +58,13 @@ enum Themes {
     }
 }
 
-/// Textes du menu (web/i18n/<langue>.json → "host"), langue : réglage ou langue du système.
+/// Menu texts (web/i18n/<language>.json → "host"); language: setting or system language.
 enum I18n {
     static let supported = ["zh-CN", "en", "fr"]
     static var code = "en", sys = "en", menuLang = "en"
     private static var cur: [String: String] = [:], en: [String: String] = [:]
 
-    // Chaînes propres à macOS (le fichier d'origine parle de Windows / barre des tâches).
+    // macOS-specific strings (the original file talks about Windows / the taskbar).
     private static let overrides: [String: [String: String]] = [
         "en": ["trayAutostart": "Start at login", "trayExit": "Quit Deskscape", "trayIcons": "Show detected icons",
                "menuTheme": "Theme", "menuQuality": "Rendering quality", "qualityNative": "Native (sharpest)", "qualityEco": "Economy (lighter on GPU)", "menuPower": "Power saving", "pauseBattery": "Pause on battery", "pauseLowPower": "Pause in Low Power Mode",

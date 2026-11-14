@@ -3,7 +3,7 @@ import IOKit
 import IOKit.ps
 import Darwin
 
-/// Surveille batterie / mode économie d'énergie et prévient quand l'un des deux change.
+/// Watches battery / Low Power Mode and notifies when either changes.
 final class PowerMonitor {
     var onChange: (() -> Void)?
     private var source: CFRunLoopSource?
@@ -31,7 +31,7 @@ final class PowerMonitor {
     var lowPowerMode: Bool { ProcessInfo.processInfo.isLowPowerModeEnabled }
 }
 
-/// Mesure la consommation de Deskscape : CPU et mémoire (app + processus WebKit de la page), GPU global du système.
+/// Measures Deskscape's usage: CPU and memory (app + the page's WebKit process), system-wide GPU.
 final class Metrics {
     struct Sample { var cpu: Double?; var memory: UInt64; var gpu: Int?; var perPid: [pid_t: Double] = [:] }
 
@@ -49,7 +49,7 @@ final class Metrics {
         return n > 0 ? ti : nil
     }
 
-    /// `pids` : l'app elle-même + le processus WebContent de la page de fond d'écran.
+    /// `pids`: the app itself + the WebContent process of the wallpaper page.
     func sample(pids: [pid_t]) -> Sample {
         let now = mach_absolute_time()
         var total: UInt64 = 0, mem: UInt64 = 0, current: [pid_t: UInt64] = [:], deltas: [pid_t: UInt64] = [:]
@@ -65,14 +65,14 @@ final class Metrics {
         var per: [pid_t: Double] = [:]
         if lastTime != 0, now > lastTime {
             let wall = Double(now - lastTime) * Double(timebase.numer) / Double(timebase.denom)
-            cpu = Double(total) / wall * 100        // 100 % = un cœur complet
+            cpu = Double(total) / wall * 100        // 100 % = one full core
             for (pid, d) in deltas { per[pid] = Double(d) / wall * 100 }
         }
         lastCPU = current; lastTime = now
         return Sample(cpu: cpu, memory: mem, gpu: Self.gpuUtilization(), perPid: per)
     }
 
-    /// Utilisation du GPU (tout le système, pas seulement Deskscape) — « Device Utilization % ».
+    /// GPU utilization (whole system, not just Deskscape) — “Device Utilization %”.
     static func gpuUtilization() -> Int? {
         var it: io_iterator_t = 0
         guard IOServiceGetMatchingServices(kIOMainPortDefault, IOServiceMatching("IOAccelerator"), &it) == KERN_SUCCESS else { return nil }

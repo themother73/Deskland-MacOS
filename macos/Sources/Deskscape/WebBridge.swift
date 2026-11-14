@@ -1,8 +1,8 @@
 import AppKit
 import WebKit
 
-/// Recrée `window.chrome.webview` (API WebView2) au-dessus de WKWebView,
-/// pour que les pages de `web/` (issues de Deskland) tournent sans modification.
+/// Recreates `window.chrome.webview` (the WebView2 API) on top of WKWebView,
+/// so the pages in `web/` (from Deskland) run without modification.
 enum WebBridge {
     static let shim = """
     (function () {
@@ -31,7 +31,7 @@ enum WebBridge {
         return web
     }
 
-    /// Envoie une chaîne à la page (équivalent de PostWebMessageAsString).
+    /// Sends a string to the page (equivalent of PostWebMessageAsString).
     static func post(_ web: WKWebView?, _ message: String) {
         guard let web = web,
               let data = try? JSONEncoder().encode(message),
@@ -40,7 +40,7 @@ enum WebBridge {
     }
 }
 
-/// Évite le cycle de rétention WKUserContentController → handler.
+/// Avoids the WKUserContentController → handler retain cycle.
 final class WeakHandler: NSObject, WKScriptMessageHandler {
     weak var target: WKScriptMessageHandler?
     init(_ t: WKScriptMessageHandler) { target = t }
@@ -49,8 +49,8 @@ final class WeakHandler: NSObject, WKScriptMessageHandler {
     }
 }
 
-/// Sert `deskscape://app.local/...` (dossier web) et `deskscape://share.local/...` (exports),
-/// avec support des requêtes Range (lecture vidéo).
+/// Serves `deskscape://app.local/...` (web folder) and `deskscape://share.local/...` (exports),
+/// with Range request support (video playback).
 final class LocalSchemeHandler: NSObject, WKURLSchemeHandler {
     var roots: [String: URL]
     init(roots: [String: URL]) { self.roots = roots }

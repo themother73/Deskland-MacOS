@@ -1,5 +1,5 @@
 #!/bin/zsh
-# Fabrique dist/Deskscape-<version>.dmg à partir de build/Deskscape.app
+# Builds dist/Deskscape-<version>.dmg from build/Deskscape.app
 set -euo pipefail
 cd "$(dirname "$0")"
 VERSION=$(cat VERSION)

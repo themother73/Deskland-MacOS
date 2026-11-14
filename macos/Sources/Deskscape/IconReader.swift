@@ -1,22 +1,22 @@
 import AppKit
 
-/// Rectangle d'une icône du bureau, en points, origine en haut à gauche de l'écran principal.
+/// Rectangle of a desktop icon, in points, origin at the top left of the main screen.
 struct IconRect: Equatable { var l, t, r, b: Double }
 
 struct IconSnapshot: Equatable {
     var visible: Bool
     var rects: [IconRect]
-    var mode: String        // "finder" (positions réelles) ou "grid" (disposition simulée)
+    var mode: String        // "finder" (real positions) or "grid" (simulated layout)
 }
 
-/// Lit les positions des icônes du bureau via le Finder (AppleScript).
+/// Reads the desktop icon positions through the Finder (AppleScript).
 ///
-/// - Bureau en placement libre / « Aligner sur la grille » : le Finder donne les positions exactes.
-/// - Bureau « Trié par… » : le Finder répond (-1, -1) ; on simule alors la grille
-///   (colonnes remplies de haut en bas, en partant de la droite).
+/// - Free placement / “Snap to Grid” desktop: the Finder gives the exact positions.
+/// - “Sort By…” desktop: the Finder answers (-1, -1), so the grid is simulated
+///   (columns filled top to bottom, starting from the right).
 final class IconReader {
-    // Réglages de calibration de la grille simulée (points). À ajuster avec « Afficher les icônes détectées ».
-    static var pitchAdjust: Double = -16     // pitch = taille icône + espacement + pitchAdjust
+    // Calibration of the simulated grid (points). Adjust with “Show detected icons”.
+    static var pitchAdjust: Double = -16     // pitch = icon size + spacing + pitchAdjust
     static var margin: Double = 12
 
     private let queue = DispatchQueue(label: "deskscape.icons")
@@ -43,7 +43,7 @@ final class IconReader {
     private func fetch() -> IconSnapshot? {
         let prefs = UserDefaults(suiteName: "com.apple.finder")
         if prefs?.object(forKey: "CreateDesktop") as? Bool == false {
-            return IconSnapshot(visible: false, rects: [], mode: "hidden")     // icônes masquées → toute la mer
+            return IconSnapshot(visible: false, rects: [], mode: "hidden")     // icons hidden → all sea
         }
         var err: NSDictionary?
         guard let script = script, let desc = Optional(script.executeAndReturnError(&err)), err == nil,
@@ -74,7 +74,7 @@ final class IconReader {
         let labelH = 2 * (textSize + 3) + 4
         let halfW = (pitch - 6) / 2
 
-        // Bureau trié (par nom, type, date…) : le Finder range lui-même les icônes et ignore les positions stockées.
+        // Sorted desktop (name, kind, date…): the Finder lays icons out itself and ignores stored positions.
         let arrange = (view["arrangeBy"] as? String) ?? "none"
         let sorted = arrange != "none" && arrange != "grid"
         var centers = pos
