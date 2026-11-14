@@ -1,3 +1,5 @@
+> Developer notes for the macOS port. Installation and usage instructions are in the [main README](../README.md) ([Français](../README.fr.md)).
+
 # Deskscape — fond d'écran adaptatif pour macOS
 
 Portage macOS non officiel de [Deskland Preview](https://github.com/BLEZZ0102/Deskland) (v0.1.3, commit `9818b57`).
