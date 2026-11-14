@@ -9,3 +9,10 @@
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# macOS port (macos/)
+/macos/.build/
+/macos/build/
+/macos/dist/
+/macos/web/
+/macos/.swiftpm/
