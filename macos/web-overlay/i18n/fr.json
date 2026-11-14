@@ -1,0 +1,307 @@
+{
+  "name": "Français",
+  "ui": {
+    "adaptive": "Adaptatif",
+    "themes": "Thèmes",
+    "collectionTitle": "Trouvez votre paysage.",
+    "collectionSubtitle": "Intégrez vos icônes au paysage.",
+    "language": "Langue",
+    "langAuto": "Langue du système",
+    "langAutoWith": "Langue du système ({name})",
+    "autostart": "Lancer à l'ouverture de session",
+    "autostartTitle": "Lancer Deskscape automatiquement à l'ouverture de votre session",
+    "autostartBlocked": "Le lancement à l'ouverture de session a peut-être été bloqué",
+    "autostartWarnSw": "Deskscape ne s'est pas lancé automatiquement cette fois — {sw} l'a peut-être bloqué. Ouvrez {sw}, trouvez Deskscape dans sa liste de démarrage et autorisez-le.",
+    "autostartWarnGeneric": "Deskscape ne s'est pas lancé automatiquement cette fois. Vérifiez qu'il est autorisé dans Réglages Système → Général → Éléments de connexion.",
+    "gotIt": "Compris",
+    "updateAvailable": "Mise à jour disponible",
+    "updateVersion": "Deskscape {version} est prêt. Votre thème et vos réglages actuels seront conservés.",
+    "updateProgram": "Mettre à jour",
+    "updateRetry": "Réessayer la mise à jour",
+    "updateWorking": "Mise à jour…",
+    "updateDownloading": "Téléchargement et installation… {progress}",
+    "updateInstalling": "Installation de la mise à jour… {progress}",
+    "updateCompletedTitle": "Mise à jour terminée",
+    "updateCompleted": "La mise à jour a été téléchargée et installée. Si Deskscape ne redémarre pas automatiquement, rouvrez-le.",
+    "updateDone": "Terminé",
+    "updateCanceled": "La mise à jour a été annulée. Vous pourrez réessayer plus tard.",
+    "updateLowBattery": "La mise à jour n'a pas pu se terminer sur batterie. Branchez votre appareil et réessayez.",
+    "updateWifiRecommended": "Ce réseau peut entraîner des frais. Changez de réseau ou réessayez plus tard.",
+    "updateWifiRequired": "Connectez-vous au Wi-Fi pour télécharger cette mise à jour.",
+    "updateStoreRequired": "Cette méthode de mise à jour n'est disponible que dans l'édition Microsoft Store.",
+    "updateFailed": "La mise à jour a échoué. Vérifiez votre connexion et réessayez.",
+    "updateCheckingTitle": "Recherche de mises à jour",
+    "updateChecking": "Connexion au serveur de mises à jour et recherche d'une nouvelle version…",
+    "updateFailedTitle": "Mise à jour non terminée",
+    "updateCheckFailedTitle": "Impossible de rechercher les mises à jour",
+    "networkTimeout": "La connexion ou le téléchargement a expiré. Vérifiez votre réseau, votre proxy ou votre pare-feu et réessayez. Si les autres sites fonctionnent, le serveur répond peut-être lentement.",
+    "networkDns": "L'adresse du serveur n'a pas pu être résolue. Vérifiez votre réseau, votre DNS ou votre proxy et réessayez.",
+    "networkTls": "Impossible d'établir une connexion sécurisée. Vérifiez l'heure du système et toute interception de sécurité par votre réseau ou votre proxy, puis réessayez.",
+    "networkLocal": "La connexion réseau a échoué ou a été interrompue. Vérifiez votre réseau, votre proxy ou votre pare-feu et réessayez.",
+    "serverUnavailable": "Le serveur a été joint, mais le service est temporairement indisponible (HTTP 5xx). Réessayez plus tard.",
+    "serverRejected": "Le serveur a rejeté la requête (HTTP 4xx). Réessayez plus tard ou contactez l'assistance si le problème persiste.",
+    "serverInvalid": "Le serveur a renvoyé une réponse non reconnue. Réessayez plus tard ou contactez l'assistance si le problème persiste.",
+    "downloadInvalid": "Le téléchargement était incomplet ou a échoué à la vérification de sécurité ; l'installation a été arrêtée. Réessayez ou contactez l'assistance si cela se reproduit.",
+    "livePreview": "Aperçu en direct",
+    "previewIcons": "Aperçu en direct · avec les {n} icônes de votre bureau",
+    "previewNoIcons": "Aperçu en direct · les icônes du bureau sont masquées",
+    "refresh": "Actualiser",
+    "refreshTitle": "Générer une nouvelle scène pour ce thème",
+    "shareImage": "Partager l'image",
+    "shareImageTitle": "Partager l'image de votre bureau en protégeant votre vie privée",
+    "shareVideo": "Partager la vidéo",
+    "shareVideoTitle": "Partager l'animation de votre bureau en protégeant votre vie privée",
+    "generating": "Génération…",
+    "preparingRec": "Préparation…",
+    "recording": "Enregistrement {p} %",
+    "savingVideo": "Enregistrement du fichier…",
+    "shareFailImage": "Impossible de créer l'image : {msg}",
+    "shareFailVideo": "Impossible d'enregistrer la vidéo : {msg}",
+    "unknownReason": "erreur inconnue",
+    "shareReadyImage": "L'image de votre bureau est prête",
+    "shareReadyVideo": "Le clip de votre bureau est prêt",
+    "sharePrivacy": "Les icônes sont remplacées par des icônes d'exemple et les noms de fichiers par des blocs de couleur : aucun de vos fichiers n'apparaît.",
+    "shareCopiedImage": "L'image est dans votre presse-papiers — collez-la directement dans une conversation ou une publication.",
+    "shareCopiedVideo": "Le fichier vidéo est dans votre presse-papiers — collez-le dans une conversation pour l'envoyer.",
+    "shareBrowserHint": " (Aperçu dans le navigateur : cliquez sur « {btn} » pour télécharger.)",
+    "savedTo": "Enregistré dans {path}",
+    "openFolder": "Afficher dans le Finder",
+    "openImage": "Ouvrir l'image",
+    "openVideo": "Ouvrir la vidéo",
+    "saveImage": "Enregistrer l'image",
+    "saveVideo": "Enregistrer la vidéo",
+    "ok": "OK",
+    "sharePreviewAlt": "Aperçu de l'image partagée",
+    "autosave": "Les modifications sont enregistrées automatiquement et appliquées tout de suite à votre bureau",
+    "saved": "Enregistré ✓",
+    "resetAll": "Tout réinitialiser",
+    "resetAllTitle": "Rétablir les valeurs par défaut de tous les réglages de ce thème",
+    "helpButtonTitle": "Questions fréquentes et dépannage",
+    "helpTitle": "Aide",
+    "helpSubtitle": "Questions fréquentes et dépannage",
+    "helpWallpaperQ": "Les icônes ne modifient pas le paysage. Comment corriger cela ?",
+    "helpWallpaperA": "Deskscape lit la position de vos icônes en interrogeant le Finder. Si le paysage ne réagit pas, vérifiez l'autorisation d'automatisation.",
+    "helpWallpaperStep1": "Ouvrez Réglages Système → Confidentialité et sécurité → Automatisation.",
+    "helpWallpaperStep2": "Sous Deskscape, activez l'accès au Finder. Si l'icône du bureau est trop décalée, utilisez « Afficher les icônes détectées » dans le menu de la barre des menus.",
+    "helpWallpaperStep3": "Pour des positions exactes, réglez le bureau sur « Trier par : Aucun » ou « Aligner sur la grille », puis relancez Deskscape.",
+    "badgeOn": "Utilisé",
+    "badgeReady": "Disponible",
+    "badgeSoon": "Bientôt",
+    "badgeLocked": "Fond d'écran",
+    "lockedTitle": "{name} · Thème de l'édition Fond d'écran ; cliquez pour les détails d'achat",
+    "purchaseLocalTitle": "Débloquer l'édition Fond d'écran",
+    "purchaseLocalTheme": "« {name} » est inclus dans l'édition Fond d'écran.",
+    "purchaseLocalMessage": "Après votre achat sur la boutique actuelle, Deskland vérifie votre achat et débloque le thème automatiquement, sans connexion à un compte. Si vous venez d'acheter, vérifiez à nouveau.",
+    "purchaseRecheck": "Vérifier les achats sur cet ordinateur",
+    "purchaseChecking": "Vérification…",
+    "purchaseCrossChannel": "Restaurer un autre canal",
+    "ongoingTitle": "D'autres arrivent",
+    "ongoingDesc": "De nouvelles scènes et de nouveaux éléments seront ajoutés au fil du temps.",
+    "noParams": "Ce thème n'a pas encore de réglages",
+    "resetOne": "Rétablir la valeur par défaut : {v}",
+    "resetOneAria": "Rétablir {label} par défaut",
+    "dblclickReset": "Double-clic pour réinitialiser ({v})",
+    "comingSoon": "Bientôt :",
+    "purchaseTitle": "Obtenir l'édition Fond d'écran",
+    "purchaseTheme": "« {name} » est inclus dans l'édition Fond d'écran.",
+    "purchaseMessage": "L'aperçu inclut Beach et Meadow pour toujours. Obtenez l'édition Fond d'écran de Deskland pour débloquer d'autres thèmes.",
+    "purchaseLater": "Continuer à explorer",
+    "purchaseWebsite": "Voir le projet d'origine"
+  },
+  "host": {
+    "traySettings": "Réglages…",
+    "trayPause": "Mettre l'animation en pause",
+    "trayReload": "Recharger",
+    "trayAutostart": "Lancer à l'ouverture de session",
+    "trayExit": "Quitter Deskscape",
+    "welcomeTitle": "Deskscape est lancé",
+    "welcomeBody": "Cliquez sur l'icône de parasol dans la barre des menus pour ouvrir le menu.",
+    "welcomeHotkey": "",
+    "errNotReady": "Le fond d'écran n'est pas encore prêt",
+    "errNoImage": "Aucune image reçue",
+    "errNoVideo": "Aucune vidéo reçue",
+    "errBusyImage": "L'image précédente est encore en cours de génération",
+    "errBusyVideo": "Le clip précédent est encore en cours d'enregistrement",
+    "errImageTimeout": "La génération a pris trop de temps",
+    "errVideoTimeout": "L'enregistrement a pris trop de temps",
+    "errBadData": "La page a renvoyé des données incomplètes",
+    "errRebuilt": "Le système a reconstruit la couche du fond d'écran en boucle ; Deskscape s'est arrêté.",
+    "errSeeLog": "Voir le journal pour plus de détails : {path}",
+    "errSettings": "Impossible d'ouvrir la fenêtre de réglages : {msg}",
+    "errNoPage": "Page introuvable : {path}",
+    "errNoDesktop": "Fenêtre du bureau introuvable ; le fond d'écran ne peut pas être attaché.",
+    "errStart": "Démarrage impossible : {msg}"
+  },
+  "themes": {
+    "lotus": {
+      "name": "Étang aux lotus",
+      "desc": "Feuilles et fleurs de lotus couvrent l'étang, avec des carpes koï qui nagent entre les feuilles et les icônes en laissant des rides",
+      "groups": ["Autour des icônes", "Détails"],
+      "params": {
+        "density": { "label": "Densité des feuilles", "hint": "Part de l'eau couverte de feuilles ; 100 % est la densité d'origine, 0 masque les feuilles et leurs fleurs" },
+        "sigma": { "label": "Eau libre", "hint": "Quantité d'eau libre autour de vos icônes" },
+        "fish": { "label": "Carpes koï", "hint": "Carpes koï qui nagent entre les feuilles de lotus et les icônes", "unit": "" },
+        "flowers": { "label": "Fleurs de lotus", "hint": "Quantité de fleurs, de boutons et de nénuphars" }
+      }
+    },
+    "lake": {
+      "name": "Lac",
+      "desc": "Une herbe à l'aquarelle entoure un lac limpide, avec des pierres peintes sous les eaux peu profondes et de nets reflets de gros nuages",
+      "groups": ["Rive", "Eau", "Nuages"],
+      "params": {
+        "sigma": { "label": "Rive herbeuse", "hint": "Jusqu'où les berges herbeuses s'étendent depuis vos icônes" },
+        "warp": { "label": "Rive sinueuse", "hint": "À quel point la rive du lac est courbée" },
+        "shoal": { "label": "Eaux claires", "hint": "Jusqu'où les pierres immergées restent visibles depuis la rive" },
+        "depth": { "label": "Profondeur de l'eau", "hint": "La distance entre les eaux turquoise peu profondes et l'eau sarcelle plus profonde" },
+        "flow": { "label": "Mouvement de l'eau", "hint": "La vitesse des rides douces, des scintillements et des reflets de nuages" },
+        "clouds": { "label": "Nombre de nuages", "hint": "Nombre de nuages reflétés sur le lac ; 0 pour les masquer", "unit": "" }
+      }
+    },
+    "beach-turquoise": {
+      "name": "Maldives",
+      "desc": "Eau turquoise et sable beige clair, avec des bancs de petits poissons entre des récifs de corail sombres",
+      "groups": ["Littoral", "Eau", "Détails"],
+      "params": {
+        "fishSchools": { "label": "Bancs de poissons", "hint": "Nombre de bancs denses nageant en eau profonde ; 0 pour les masquer", "unit": "" },
+        "palms": { "label": "Cocotiers", "hint": "Nombre de palmiers côtiers ; 0 pour les masquer. Il y en a moins s'il n'y a pas assez de sable.", "unit": "" },
+        "sigma": { "label": "Distance aux icônes", "hint": "À quelle distance de vos icônes se trouve le rivage" },
+        "warp": { "label": "Côte sinueuse", "hint": "À quel point le rivage tourne et serpente" },
+        "shoal": { "label": "Eaux claires", "hint": "Largeur de l'eau transparente au-dessus du sable" },
+        "shallow": { "label": "Mer peu profonde", "hint": "La distance entre les eaux menthe pâle peu profondes et le turquoise profond" },
+        "kayaks": { "label": "Kayaks", "unit": "" },
+        "birds": { "label": "Oiseaux de mer", "hint": "Des mouettes qui planent et tournoient au-dessus", "unit": "" },
+        "turtles": { "label": "Tortues de mer", "hint": "Tortues de mer nageant lentement ; 0 pour les masquer", "unit": "" }
+      }
+    },
+    "beach": {
+      "name": "Plage",
+      "desc": "Le rivage épouse vos fichiers tandis que les vagues roulent sur le sable",
+      "groups": ["Littoral", "Eau", "Détails"],
+      "params": {
+        "palms": { "label": "Cocotiers", "hint": "Nombre de palmiers côtiers ; 0 pour les masquer. Il y en a moins s'il n'y a pas assez de sable.", "unit": "" },
+        "sigma": { "label": "Distance aux icônes", "hint": "À quelle distance de vos icônes se trouve le rivage" },
+        "warp": { "label": "Côte sinueuse", "hint": "À quel point le rivage tourne et serpente" },
+        "shoal": { "label": "Eaux claires", "hint": "Largeur de l'eau transparente au-dessus du sable" },
+        "shallow": { "label": "Mer peu profonde", "hint": "Jusqu'où l'eau passe du turquoise au bleu profond" },
+        "kayaks": { "label": "Kayaks", "unit": "" },
+        "birds": { "label": "Oiseaux de mer", "hint": "Des mouettes qui planent et tournoient au-dessus", "unit": "" }
+      }
+    },
+    "sky": {
+      "name": "Ciel",
+      "desc": "Un ciel bleu de dessin animé où vos icônes reposent sur de gros nuages ronds — jour, crépuscule ou nuit",
+      "groups": ["Moment de la journée", "Autour des icônes", "Nuages", "Détails"],
+      "params": {
+        "time": {
+          "label": "Moment de la journée",
+          "hint": "Suit l'horloge : aube à 6 h, jour à 7 h, crépuscule à 17 h 30, nuit à 19 h",
+          "options": ["Auto", "Jour", "Crépuscule", "Nuit"]
+        },
+        "sigma": { "label": "Taille des nuages", "hint": "Jusqu'où les nuages s'étendent autour de vos icônes" },
+        "cover": { "label": "Nuages dans le ciel", "hint": "Combien de nuages dérivent dans le ciel dégagé" },
+        "flow": { "label": "Vitesse de dérive", "hint": "La vitesse à laquelle les nuages dérivent et leurs volutes changent" },
+        "birds": { "label": "Oiseaux", "hint": "Ils ne volent pas la nuit", "unit": "" },
+        "plane": {
+          "label": "Avion",
+          "hint": "Un petit avion traverse le haut de l'écran",
+          "options": ["Jamais", "De temps en temps", "Souvent"]
+        },
+        "moon": {
+          "label": "Lune",
+          "hint": "La lune et son clair de lune la nuit",
+          "options": ["Non", "Oui"]
+        },
+        "stars": { "label": "Taille des étoiles", "hint": "Les étoiles la nuit ; augmentez pour des étoiles brillantes avec des éclats en croix" }
+      }
+    },
+    "ocean": {
+      "name": "Océan",
+      "desc": "Vue plongeante sur un océan bleu — vos icônes se cachent dans des nuages blancs dont l'ombre tombe sur la mer",
+      "groups": ["Autour des icônes", "Nuages", "Détails"],
+      "params": {
+        "sigma": { "label": "Taille des nuages", "hint": "Jusqu'où les nuages s'étendent autour de vos icônes" },
+        "cover": { "label": "Nuages sur la mer", "hint": "Combien de nuages dérivent sur la mer ouverte" },
+        "flow": { "label": "Vitesse de dérive", "hint": "La vitesse à laquelle les nuages dérivent et leurs volutes changent" },
+        "boats": { "label": "Voiliers", "hint": "Voiliers blancs et gris qui naviguent lentement en eau libre", "unit": "" },
+        "yachts": { "label": "Yachts", "hint": "Yachts blancs et gris, avec vitres gris foncé, sièges gris clair et sillages d'écume", "unit": "" },
+        "birds": { "label": "Oiseaux de mer", "hint": "Mouettes blanches qui planent et tournoient au-dessus de la mer", "unit": "" }
+      }
+    },
+    "meadow": {
+      "name": "Prairie",
+      "desc": "Une prairie à la plume et au lavis où vos icônes se cachent dans des nuages blancs qui projettent des ombres vert foncé",
+      "groups": ["Autour des icônes", "Nuages", "Personnages"],
+      "params": {
+        "sigma": { "label": "Taille des nuages", "hint": "Jusqu'où les nuages s'étendent autour de vos icônes" },
+        "cover": { "label": "Nuages sur la prairie", "hint": "Combien de nuages dérivent sur la prairie dégagée" },
+        "flow": { "label": "Vitesse de dérive", "hint": "La vitesse à laquelle les nuages dérivent et leurs volutes changent" },
+        "showBoy": {
+          "label": "Afficher le garçon",
+          "hint": "Afficher ou masquer le garçon et son cerf-volant",
+          "options": ["Masquer", "Afficher"]
+        },
+        "showCat": {
+          "label": "Afficher le chaton",
+          "hint": "Le petit chaton noir qui se repose dans l'herbe",
+          "options": ["Masquer", "Afficher"]
+        }
+      }
+    },
+    "forest": {
+      "name": "Forêt",
+      "desc": "Vos icônes se trouvent dans une clairière entourée d'arbres de dessin animé à la gouache qui se balancent dans la brise",
+      "groups": ["Autour des icônes", "Arbres", "Détails"],
+      "params": {
+        "sigma": { "label": "Taille de la clairière", "hint": "Taille de la clairière autour de vos icônes et distance à laquelle se tiennent les arbres" },
+        "wind": { "label": "Vent", "hint": "À quel point la cime des arbres se balance ; 0 signifie pas de vent" },
+        "birds": { "label": "Oiseaux", "hint": "Surtout perchés sur la cime des arbres, parfois en vol vers un arbre voisin — ils restent dans les bois", "unit": "" }
+      }
+    },
+    "pinkforest": {
+      "name": "Forêt rose",
+      "desc": "Une forêt à l'aquarelle : cimes roses translucides sur de fins troncs à l'encre",
+      "groups": ["Autour des icônes", "Arbres", "Détails"],
+      "params": {
+        "sigma": { "label": "Taille de la clairière", "hint": "Taille de la clairière autour de vos icônes et distance à laquelle se tiennent les arbres" },
+        "wind": { "label": "Vent", "hint": "À quel point la cime des arbres se balance ; 0 signifie pas de vent" },
+        "birds": { "label": "Oiseaux", "hint": "De petits oiseaux à l'encre, surtout perchés sur la cime des arbres, parfois en vol vers un arbre voisin", "unit": "" }
+      }
+    },
+    "map": {
+      "name": "Ville dessinée à la main",
+      "desc": "Une carte à vol d'oiseau d'une vieille ville : des rangées de maisons dessinées à l'encre bordent les rues, et vos icônes occupent les places",
+      "groups": ["Autour des icônes", "Ville"],
+      "params": {
+        "sigma": { "label": "Taille des places", "hint": "Taille des places dégagées autour de vos icônes" },
+        "canals": { "label": "Canaux", "hint": "Combien de canaux traversent la ville, avec de petits bateaux qui dérivent", "unit": "" }
+      }
+    },
+    "citymap": {
+      "name": "Ville colorée",
+      "desc": "Un plan de ville illustré, aux toits rouges et aux murs jaunes, roses et bleus ; vos icônes occupent les places",
+      "groups": ["Autour des icônes"],
+      "params": {
+        "sigma": { "label": "Taille des places", "hint": "Taille des places dégagées autour de vos icônes" }
+      }
+    },
+    "worldmap": {
+      "name": "Vieille carte",
+      "desc": "Un continent sur parchemin : les icônes deviennent des mers, des routes pointillées relient les villes, et des chariots tirés par des chevaux transportent des vivres de l'une à l'autre",
+      "groups": ["Autour des icônes", "Détails"],
+      "params": {
+        "sigma": { "label": "Taille des mers", "hint": "Quantité de mer autour de vos icônes" },
+        "ships": { "label": "Voiliers", "hint": "Navires à trois mâts qui tanguent sur la mer", "unit": "" },
+        "wagons": { "label": "Chariots marchands", "hint": "Des chariots transportent caisses et sacs de grain entre les villes ; 0 pour les masquer", "unit": "" }
+      }
+    },
+    "nauticalmap": {
+      "name": "Carte marine",
+      "desc": "Une carte marine sur parchemin avec des ports côtiers et des phares, des routes maritimes sinueuses, des voiliers et des monstres marins dessinés à la main",
+      "groups": ["Autour des icônes", "Détails"],
+      "params": {
+        "sigma": { "label": "Taille des terres", "hint": "Jusqu'où les terres s'étendent autour de vos icônes" },
+        "ships": { "label": "Voiliers", "hint": "Galions, goélettes et cotres dessinés à la main qui tanguent doucement entre les îles", "unit": "" }
+      }
+    }
+  }
+}
